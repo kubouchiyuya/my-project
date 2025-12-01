@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miyabi Project Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-card h3 {
+            color: #667eea;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .issues-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .issues-section h2 {
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .issue-item {
+            padding: 1rem;
+            border-left: 4px solid #667eea;
+            background: #f7fafc;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .issue-item:hover {
+            background: #edf2f7;
+        }
+
+        .issue-item h4 {
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .issue-item a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .issue-item a:hover {
+            text-decoration: underline;
+        }
+
+        .issue-meta {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .label {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .label-bug { background: #fed7d7; color: #c53030; }
+        .label-feature { background: #c6f6d5; color: #22543d; }
+        .label-enhancement { background: #bee3f8; color: #2c5282; }
+        .label-documentation { background: #fef5e7; color: #975a16; }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 2rem;
+            opacity: 0.8;
+        }
+
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            padding: 3rem;
+        }
+
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .last-updated {
+            text-align: center;
+            color: white;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎋 Miyabi Project Dashboard</h1>
+            <p>GitHub Projects Progress Tracker</p>
+        </div>
+
+        <div id="loading" class="loading">
+            Loading dashboard data...
+        </div>
+
+        <div id="error" class="error" style="display: none;"></div>
+
+        <div id="content" style="display: none;">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Issues</h3>
+                    <div class="value" id="totalIssues">-</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Open Issues</h3>
+                    <div class="value" id="openIssues">-</div>
+                </div>
+                <div class="stat-card">
+                    <h3>In Progress</h3>
+                    <div class="value" id="inProgressIssues">-</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Completed</h3>
+                    <div class="value" id="completedIssues">-</div>
+                </div>
+            </div>
+
+            <div class="issues-section">
+                <h2>Recent Issues</h2>
+                <div id="recentIssues"></div>
+            </div>
+
+            <div class="last-updated">
+                Last updated: <span id="lastUpdated">-</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Powered by GitHub Actions • Auto-updates every 6 hours</p>
+        </div>
+    </div>
+
+    <script>
+        async function loadDashboard() {
+            try {
+                const response = await fetch('dashboard-data.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load dashboard data');
+                }
+
+                const data = await response.json();
+
+                // Update stats
+                document.getElementById('totalIssues').textContent = data.stats.total || 0;
+                document.getElementById('openIssues').textContent = data.stats.open || 0;
+                document.getElementById('inProgressIssues').textContent = data.stats.inProgress || 0;
+                document.getElementById('completedIssues').textContent = data.stats.completed || 0;
+
+                // Update recent issues
+                const recentIssuesContainer = document.getElementById('recentIssues');
+                if (data.recentIssues && data.recentIssues.length > 0) {
+                    recentIssuesContainer.innerHTML = data.recentIssues.map(issue => `
+                        <div class="issue-item">
+                            <h4>
+                                <a href="${issue.url}" target="_blank">#${issue.number} ${issue.title}</a>
+                            </h4>
+                            <div class="issue-meta">
+                                ${issue.state} • ${issue.status || 'No status'} • Updated ${formatDate(issue.updatedAt)}
+                            </div>
+                            ${issue.labels && issue.labels.length > 0 ? `
+                                <div>
+                                    ${issue.labels.map(label => `
+                                        <span class="label label-${getLabelClass(label)}">${label}</span>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                    `).join('');
+                } else {
+                    recentIssuesContainer.innerHTML = '<p>No issues found.</p>';
+                }
+
+                // Update last updated time
+                if (data.generatedAt) {
+                    document.getElementById('lastUpdated').textContent = new Date(data.generatedAt).toLocaleString();
+                }
+
+                // Show content, hide loading
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                document.getElementById('loading').style.display = 'none';
+                const errorEl = document.getElementById('error');
+                errorEl.textContent = 'Failed to load dashboard data: ' + error.message;
+                errorEl.style.display = 'block';
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diff = now - date;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+            if (days === 0) return 'today';
+            if (days === 1) return 'yesterday';
+            if (days < 7) return `${days} days ago`;
+            if (days < 30) return `${Math.floor(days / 7)} weeks ago`;
+            return date.toLocaleDateString();
+        }
+
+        function getLabelClass(label) {
+            const lower = label.toLowerCase();
+            if (lower.includes('bug')) return 'bug';
+            if (lower.includes('feature')) return 'feature';
+            if (lower.includes('enhancement')) return 'enhancement';
+            if (lower.includes('doc')) return 'documentation';
+            return 'feature';
+        }
+
+        // Load dashboard on page load
+        loadDashboard();
+    </script>
+</body>
+</html>

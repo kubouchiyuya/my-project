@@ -1,0 +1,47 @@
+{
+  "stats": {
+    "total": 15,
+    "open": 5,
+    "inProgress": 3,
+    "completed": 7
+  },
+  "recentIssues": [
+    {
+      "number": 1,
+      "title": "Setup GitHub Projects Integration",
+      "state": "OPEN",
+      "url": "https://github.com/example/repo/issues/1",
+      "updatedAt": "2025-12-01T21:32:31.428Z",
+      "labels": [
+        "feature",
+        "high-priority"
+      ],
+      "status": "In Progress"
+    },
+    {
+      "number": 2,
+      "title": "Add Dashboard Visualization",
+      "state": "OPEN",
+      "url": "https://github.com/example/repo/issues/2",
+      "updatedAt": "2025-11-30T21:32:31.429Z",
+      "labels": [
+        "enhancement",
+        "ui"
+      ],
+      "status": "Todo"
+    },
+    {
+      "number": 3,
+      "title": "Fix CI/CD Pipeline",
+      "state": "CLOSED",
+      "url": "https://github.com/example/repo/issues/3",
+      "updatedAt": "2025-11-29T21:32:31.429Z",
+      "labels": [
+        "bug",
+        "ci-cd"
+      ],
+      "status": "Done"
+    }
+  ],
+  "generatedAt": "2025-12-01T21:32:31.429Z"
+}
