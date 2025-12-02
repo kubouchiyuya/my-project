@@ -140,7 +140,7 @@ export class MonitoringDashboard {
   public getFormattedDashboard(): string {
     const status = this.getFullStatus();
 
-    let dashboard = '🎋 MIYABI MONITORING DASHBOARD\n';
+    let dashboard = '🌸 MIYABI（雅）MONITORING DASHBOARD\n';
     dashboard += '═'.repeat(60) + '\n';
     dashboard += `📅 ${status.timestamp}\n\n`;
 

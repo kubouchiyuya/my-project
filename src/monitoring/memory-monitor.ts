@@ -1,6 +1,6 @@
 /**
  * Memory Monitor - メモリ使用量監視・制限システム
- * 宮火（Miyabi）のメモリ使用量を 90% 以下に制御
+ * 雅（Miyabi）のメモリ使用量を 90% 以下に制御
  */
 
 import * as os from 'os';

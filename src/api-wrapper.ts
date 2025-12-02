@@ -1,6 +1,6 @@
 /**
  * Anthropic API Wrapper with Automatic Tracking
- * Claude API calls are automatically recorded in the monitoring system
+ * Claude API calls are automatically recorded in the Miyabi（雅）monitoring system
  */
 
 import Anthropic from '@anthropic-ai/sdk';
@@ -12,7 +12,7 @@ export interface ClaudeMessage {
   role: string;
   content: string;
   model: string;
-  stop_reason: string;
+  stop_reason: string | null;
   stop_sequence: string | null;
   usage: {
     input_tokens: number;

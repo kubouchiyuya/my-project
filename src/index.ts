@@ -1,13 +1,13 @@
 /**
  * my-project - Entry Point
  *
- * Autonomous development powered by Miyabi framework
+ * Autonomous development powered by Miyabi（雅）framework
  */
 
 import { initializeDashboard } from './monitoring/index.js';
 
 console.log('🌸 Welcome to my-project!');
-console.log('Powered by Miyabi - Autonomous AI Development Framework');
+console.log('Powered by Miyabi（雅）- Autonomous AI Development Framework');
 console.log('');
 console.log('This project includes:');
 console.log('  ✓ 7 AI agents ready to work');
