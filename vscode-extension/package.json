@@ -1,0 +1,83 @@
+{
+  "name": "miyabi-vscode",
+  "displayName": "Miyabi - AI Task Automation",
+  "description": "🎋 AI駆動タスク自動実行システム with Lark MCP",
+  "version": "0.1.0",
+  "publisher": "miyabi",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Programming Languages"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "miyabi.execute",
+        "title": "Miyabi: タスクを実行"
+      },
+      {
+        "command": "miyabi.executeWithLark",
+        "title": "Miyabi: タスクを実行（Lark通知あり）"
+      },
+      {
+        "command": "miyabi.larkTest",
+        "title": "Miyabi: Lark連携テスト"
+      },
+      {
+        "command": "miyabi.openTerminal",
+        "title": "Miyabi: ターミナルを開く"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "miyabi.execute",
+        "key": "ctrl+shift+m",
+        "mac": "cmd+shift+m"
+      }
+    ],
+    "configuration": {
+      "title": "Miyabi",
+      "properties": {
+        "miyabi.larkAppId": {
+          "type": "string",
+          "default": "",
+          "description": "Lark App ID"
+        },
+        "miyabi.larkAppSecret": {
+          "type": "string",
+          "default": "",
+          "description": "Lark App Secret"
+        },
+        "miyabi.larkChatId": {
+          "type": "string",
+          "default": "",
+          "description": "Lark Chat ID"
+        },
+        "miyabi.enableLarkNotifications": {
+          "type": "boolean",
+          "default": false,
+          "description": "Lark通知を有効化"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.3"
+  }
+}
